@@ -1,1 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AuraLOA - CRM Precatórios</title>
+    <style>
+        /* Paleta Minimalista: Matte Black, Obsidian, Charcoal, Destaques Moonlight/Gold */
+        body {
+            background-color: #0a0a0a;
+            color: #d1d1d1;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* Topbar AuraLOA */
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #121212;
+            padding: 15px 40px;
+            border-bottom: 1px solid #D4AF37;
+        }
+        .topbar-brand {
+            color: #D4AF37;
+            font-size: 1.4em;
+            letter-spacing: 1px;
+            font-weight: 300;
+        }
+        .topbar-actions button {
+            background: transparent;
+            color: #d1d1d1;
+            border: 1px solid #333;
+            padding: 8px 16px;
+            margin-left: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .topbar-actions button:hover {
+            border-color: #D4AF37;
+            color: #D4AF37;
+        }
+        .topbar-actions .ecosystem-btn {
+            background-color: #D4AF37;
+            color: #0a0a0a;
+            border: 1px solid #D4AF37;
+            font-weight: 600;
+        }
+        .topbar-actions .ecosystem-btn:hover {
+            background-color: #b5952f;
+            color: #0a0a0a;
+        }
 
+        /* Container Principal */
+        .container {
+            padding: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        /* Tabela CRM */
+        .table-wrapper {
+            background-color: #1a1a1a;
+            border-radius: 4px;
+            overflow-x: auto;
+            border: 1px solid #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            white-space: nowrap;
+        }
+        th, td {
+            padding: 16px 20px;
+            border-bottom: 1px solid #2a2a2a;
+        }
+        th {
+            background-color: #121212;
+            color: #D4AF37;
+            font-weight: 400;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        tr:hover td {
+            background-color: #222;
+        }
+        td {
+            font-size: 0.95em;
+        }
+        .status-badge {
+            background-color: #2a2a2a;
+            border: 1px solid #D4AF37;
+            color: #D4AF37;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.85em;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="topbar">
+        <div class="topbar-brand">AuraLOA</div>
+        <div class="topbar-actions">
+            <button>Idioma</button>
+            <button class="ecosystem-btn">AuraTECH Ecosystem</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2 style="font-weight: 300; margin-bottom: 25px; color: #fff;">Gestão de Ativos Financeiros</h2>
+        
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nº Precatório</th>
+                        <th>Nº Processo / CNJ</th>
+                        <th>Valor (R$)</th>
+                        <th>Advogado</th>
+                        <th>OAB / Contato</th>
+                        <th>Status</th>
+                        <th>Fase Pipeline</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>3650677920244010000</td>
+                        <td>0001648-37.2015.4.01.3100/AP</td>
+                        <td>28.116.915,00</td>
+                        <td>Dr. Paulo Roberto Nascimento</td>
+                        <td>OAB/AP 1.234<br>(96) 99554-3210</td>
+                        <td><span class="status-badge">Livre para cessão</span></td>
+                        <td>Qualification</td>
+                    </tr>
+                    <tr>
+                        <td>5011591-65.2025.4.00.0000</td>
+                        <td>0110039-73.1992.4.02.5102</td>
+                        <td>124.672.519,00</td>
+                        <td>Sandra de Abreu / Pedro Henrique</td>
+                        <td>OAB/RJ 199575 / 72205</td>
+                        <td>Intimação</td>
+                        <td>Qualification</td>
+                    </tr>
+                    <tr>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>22.000.000,00</td>
+                        <td>Advogada (Procuradora)</td>
+                        <td>-</td>
+                        <td>Aprovado</td>
+                        <td>Prospecting</td>
+                    </tr>
+                    <tr>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>191.646.490,00</td>
+                        <td>Eduardo Oleinik / William / Carolina</td>
+                        <td>OAB/PR 33136 / 93113 / 69760</td>
+                        <td>-</td>
+                        <td>Prospecting</td>
+                    </tr>
+                    <tr>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>63.034.501,00</td>
+                        <td>Lucas Pinto Souza</td>
+                        <td>OAB/SC 31940</td>
+                        <td>-</td>
+                        <td>Prospecting</td>
+                    </tr>
+                    <tr>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>61.154.781,00</td>
+                        <td>José Paulo de Castro Emsenhuber</td>
+                        <td>OAB/SP 72400</td>
+                        <td>-</td>
+                        <td>Prospecting</td>
+                    </tr>
+                    <tr>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>34.380.241,00</td>
+                        <td>Alexandre Barbosa</td>
+                        <td>OAB/RJ 065750</td>
+                        <td>-</td>
+                        <td>Prospecting</td>
+                    </tr>
+                    <tr>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>34.380.241,00</td>
+                        <td>Adriano Mezzomo / Claudio / Jorge</td>
+                        <td>OAB/RJ 069551 / 179881 / 034125</td>
+                        <td>-</td>
+                        <td>Prospecting</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>
