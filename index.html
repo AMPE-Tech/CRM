@@ -1,26 +1,39 @@
-<script>
-    // Base de dados carregada diretamente no código (sem arquivos externos)
-    const dadosCRM = [
-        { "Nº Precatorio": "5000792-60.2025.4.02.9388", "Valor (R$)": "569.022.567", "Advogado": "JARDEL ROMULO" },
-        { "Nº Precatorio": "0816391-59.2025.8.14.0000", "Valor (R$)": "25.122.248", "Advogado": "OTAVIO SOUZA" },
-        { "Nº Precatorio": "0287409-48.2024.8.26.0500", "Valor (R$)": "11.345.611", "Advogado": "DANIEL DO NASCIMENTO" },
-        { "Nº Precatorio": "0817467-21.2025.8.14.0000", "Valor (R$)": "8.021.953", "Advogado": "PENDENTE" }
-    ];
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>AURATECH CRM</title>
+    <style>
+        body { background-color: #0d1117; color: white; font-family: sans-serif; }
+        .card { background: #162032; padding: 20px; margin: 10px; border-radius: 8px; border: 1px solid #1e2d45; cursor: pointer; }
+        .card h4 { margin: 0; color: #22d3ee; }
+        .card p { color: #fbbf24; margin-top: 5px; }
+    </style>
+</head>
+<body>
+    <h1>AURATECH CRM</h1>
+    <div id="pipeline-container"></div>
 
-    function carregarDadosCRM() {
-        const container = document.getElementById('pipeline-container');
-        if (!container) return;
-        
-        container.innerHTML = ''; 
-        dadosCRM.forEach(item => {
-            container.innerHTML += `
-                <div class="card" onclick="openModal('${item['Nº Precatorio']}', '${item['Valor (R$)']}')">
-                    <h4>${item['Advogado']}</h4>
-                    <p style="color:var(--gold);">R$ ${item['Valor (R$)']}</p>
-                </div>
-            `;
-        });
-    }
+    <script>
+        const dadosCRM = [
+            { "Nº Precatorio": "5000792-60.2025.4.02.9388", "Valor (R$)": "569.022.567", "Advogado": "JARDEL ROMULO" },
+            { "Nº Precatorio": "0816391-59.2025.8.14.0000", "Valor (R$)": "25.122.248", "Advogado": "OTAVIO SOUZA" },
+            { "Nº Precatorio": "0287409-48.2024.8.26.0500", "Valor (R$)": "11.345.611", "Advogado": "DANIEL DO NASCIMENTO" }
+        ];
 
-    window.onload = carregarDadosCRM;
-</script>
+        function carregarDadosCRM() {
+            const container = document.getElementById('pipeline-container');
+            container.innerHTML = ''; 
+            dadosCRM.forEach(item => {
+                container.innerHTML += `
+                    <div class="card">
+                        <h4>${item['Advogado']}</h4>
+                        <p>R$ ${item['Valor (R$)']}</p>
+                    </div>
+                `;
+            });
+        }
+        window.onload = carregarDadosCRM;
+    </script>
+</body>
+</html>
