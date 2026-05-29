@@ -9,8 +9,7 @@
         body { font-family: 'Inter', sans-serif; background: var(--bg); color: #fff; margin: 0; display: flex; }
         aside { width: 260px; height: 100vh; background: #000; border-right: 1px solid var(--border); padding: 40px 20px; }
         main { flex: 1; padding: 40px; }
-        .card { background: var(--surface); border: 1px solid var(--border); padding: 20px; border-radius: 12px; cursor: pointer; transition: 0.3s; margin-bottom: 15px; }
-        .card:hover { border-color: var(--gold); }
+        .card { background: var(--surface); border: 1px solid var(--border); padding: 20px; border-radius: 12px; cursor: pointer; transition: 0.3s; margin-bottom: 10px; }
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); justify-content: center; align-items: center; }
         .modal-content { background: var(--surface); padding: 40px; border-radius: 16px; width: 400px; border: 1px solid var(--gold); }
         input { width: 100%; background: #000; border: 1px solid var(--border); color: #fff; padding: 12px; margin: 10px 0; border-radius: 6px; }
@@ -21,39 +20,36 @@
 <aside><div style="color:var(--gold); font-weight:600;">AURATECH CRM</div></aside>
 
 <main id="pipeline-container">
-    <!-- Cards serão gerados aqui pelo script -->
-</main>
+    </main>
 
 <div id="modal" class="modal">
     <div class="modal-content">
         <h3>Editar Precatório</h3>
         <input type="text" id="editName" placeholder="Nome do Cliente">
         <input type="text" id="editValue" placeholder="Valor">
-        <button onclick="saveChanges()" style="background:var(--gold); border:none; padding:12px 20px; border-radius:6px; cursor:pointer;">Salvar Alterações</button>
+        <button onclick="saveChanges()" style="background:var(--gold); border:none; padding:12px 20px; border-radius:6px; cursor:pointer;">Salvar</button>
     </div>
 </div>
 
 <script>
+    // Dados fixos (sem necessidade de ler arquivos externos)
     const dadosCRM = [
-        { id: 1, nome: "Eduardo", valor: "R$ 22.000.000" },
-        { id: 2, nome: "Amapá Eng.", valor: "R$ 28.116.915" },
-        { id: 3, nome: "JARDEL ROMULO", valor: "R$ 569.022.567" }
+        { id: "1", nome: "JARDEL ROMULO", valor: "R$ 569.022.567" },
+        { id: "2", nome: "OTAVIO SOUZA", valor: "R$ 25.122.248" },
+        { id: "3", nome: "DANIEL DO NASCIMENTO", valor: "R$ 11.345.611" }
     ];
 
-    function renderizarCards() {
-        const main = document.getElementById('pipeline-container');
-        main.innerHTML = '';
-        dadosCRM.forEach(item => {
-            main.innerHTML += `
-                <div id="card${item.id}" class="card" onclick="openModal(${item.id})">
-                    <h4 id="name${item.id}">${item.nome}</h4>
-                    <p id="value${item.id}" style="color:var(--gold);">${item.valor}</p>
-                </div>
-            `;
-        });
-    }
+    const container = document.getElementById('pipeline-container');
+    dadosCRM.forEach(item => {
+        container.innerHTML += `
+            <div id="card${item.id}" class="card" onclick="openModal('${item.id}')">
+                <h4 id="name${item.id}">${item.nome}</h4>
+                <p id="value${item.id}" style="color:var(--gold);">${item.valor}</p>
+            </div>
+        `;
+    });
 
-    let currentId = null;
+    let currentId = "";
     function openModal(id) {
         currentId = id;
         document.getElementById('editName').value = document.getElementById('name'+id).innerText;
@@ -66,8 +62,6 @@
         document.getElementById('value'+currentId).innerText = document.getElementById('editValue').value;
         document.getElementById('modal').style.display = 'none';
     }
-
-    renderizarCards();
 </script>
 </body>
 </html>
