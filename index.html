@@ -2,64 +2,65 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>AuraLOA | Gestão de Ativos</title>
+    <title>AuraLOA CRM | Enterprise Pipeline</title>
     <style>
-        :root { --gold: #D4AF37; --bg: #0a0a0a; --card: #1a1a1a; }
-        body { background: var(--bg); color: #d1d1d1; font-family: sans-serif; margin: 0; }
-        .topbar { display: flex; justify-content: space-between; padding: 20px 40px; background: #121212; border-bottom: 2px solid var(--gold); }
-        .kanban { display: flex; gap: 15px; padding: 20px; overflow-x: auto; }
-        .col { background: #161616; width: 300px; padding: 15px; border-radius: 8px; border: 1px solid #333; }
-        .col h3 { color: var(--gold); text-align: center; border-bottom: 1px solid #333; }
-        .card { background: var(--card); padding: 10px; margin: 10px 0; border-left: 4px solid var(--gold); border-radius: 4px; font-size: 0.9em; }
-        table { width: 100%; border-collapse: collapse; margin-top: 30px; background: #121212; font-size: 0.8em; }
-        th { background: #000; color: var(--gold); padding: 10px; border: 1px solid #333; }
-        td { padding: 8px; border: 1px solid #333; cursor: text; }
+        :root { --gold: #D4AF37; --bg: #0a0a0a; --surface: #121212; --text: #e0e0e0; }
+        body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background: var(--bg); color: var(--text); margin: 0; display: flex; }
+        
+        /* Sidebar Estilo Pipedrive */
+        nav { width: 80px; background: #000; height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 20px 0; border-right: 1px solid #333; }
+        .logo { color: var(--gold); font-size: 1.5em; margin-bottom: 40px; }
+        .nav-item { color: #666; margin: 20px 0; cursor: pointer; }
+
+        /* Conteúdo Principal */
+        main { flex: 1; padding: 30px; }
+        .header { display: flex; justify-content: space-between; margin-bottom: 30px; }
+        
+        /* Kanban Layout */
+        .kanban { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
+        .col { background: var(--surface); border-radius: 6px; padding: 15px; border-top: 4px solid var(--gold); }
+        .card { background: #1a1a1a; padding: 15px; margin: 10px 0; border-radius: 4px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); border: 1px solid #333; }
+        .card h4 { margin: 0; color: #fff; }
+        .card p { font-size: 0.8em; color: var(--gold); }
+        
+        /* Tabela Estilo Salesforce */
+        .table-container { background: var(--surface); margin-top: 40px; padding: 20px; border-radius: 6px; }
+        table { width: 100%; border-collapse: collapse; }
+        th { text-align: left; color: #888; font-weight: 500; padding: 10px; border-bottom: 1px solid #333; }
+        td { padding: 12px; border-bottom: 1px solid #222; }
     </style>
 </head>
 <body>
 
-<div class="topbar">
-    <h1 style="color:var(--gold); margin:0;">AuraLOA Pipeline</h1>
-    <button onclick="exportCSV()" style="background:var(--gold); border:none; padding:10px; cursor:pointer;">Exportar CSV</button>
-</div>
+<nav>
+    <div class="logo">A</div>
+    <div class="nav-item">📊</div>
+    <div class="nav-item">📁</div>
+    <div class="nav-item">⚙️</div>
+</nav>
 
-<div class="kanban">
-    <div class="col"><h3>Prospecting</h3>
-        <div class="card">Eduardo (R$ 22M)</div>
-        <div class="card">Marilde Scambara (R$ 191M)</div>
+<main>
+    <div class="header">
+        <h1>Pipeline de Vendas</h1>
+        <button onclick="window.print()" style="background:var(--gold); border:none; padding:10px 20px; cursor:pointer;">Exportar PDF</button>
     </div>
-    <div class="col"><h3>Qualification</h3>
-        <div class="card">Amapá Engenharia (R$ 28M)</div>
-        <div class="card">Célio Lourenço (R$ 124M)</div>
+
+    <div class="kanban">
+        <div class="col"><h3>Prospecting</h3><div class="card"><h4>Eduardo</h4><p>R$ 22.000.000</p></div></div>
+        <div class="col"><h3>Qualification</h3><div class="card"><h4>Amapá Eng.</h4><p>R$ 28.116.915</p></div></div>
+        <div class="col"><h3>Due Diligence</h3></div>
+        <div class="col"><h3>Fechamento</h3></div>
     </div>
-    <div class="col"><h3>Due Diligence</h3></div>
-    <div class="col"><h3>Fechamento</h3></div>
-</div>
 
-<table id="masterTable" contenteditable="true">
-    <thead>
-        <tr>
-            <th>Nº Precatorio</th><th>Nº Processo CNJ</th><th>Valor (R$)</th><th>Advogado</th><th>OAB</th>
-            <th>Link CNA</th><th>Status</th><th>Fase</th><th>Probabilidade</th><th>Principal Bruto</th>
-            <th>Juros</th><th>Total Atualizado</th><th>Último Contato</th><th>Responsável</th><th>Motivo Perda</th><th>Previsão</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr><td>3650677920244010000</td><td>0001648-37.2015.4.01.3100/AP</td><td>28.116.915,00</td><td>Paulo Roberto</td><td>OAB/AP 1.234</td><td>(96) 99554-3210</td><td>Livre</td><td>Qualification</td><td>50%</td><td>-</td><td>-</td><td>28.116.915</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
-        <tr><td>5011591-65.2025.4.00.0000</td><td>0110039-73.1992.4.02.5102</td><td>124.672.519,00</td><td>Sandra de Abreu</td><td>OAB/RJ 199575</td><td>-</td><td>Intimação</td><td>Qualification</td><td>50%</td><td>-</td><td>-</td><td>124.672.519</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
-    </tbody>
-</table>
-
-<script>
-function exportCSV() {
-    let t = document.getElementById("masterTable");
-    let c = Array.from(t.rows).map(r => Array.from(r.cells).map(x => x.innerText).join(";")).join("\n");
-    let b = new Blob([c], {type: 'text/csv'});
-    let a = document.createElement("a");
-    a.href = URL.createObjectURL(b);
-    a.download = "CRM_AuraLOA_Completo.csv";
-    a.click();
-}
-</script>
+    <div class="table-container">
+        <h3>Detalhamento de Ativos</h3>
+        <table contenteditable="true">
+            <thead><tr><th>Precatório</th><th>Valor</th><th>Responsável</th><th>Status</th></tr></thead>
+            <tbody>
+                <tr><td>36506779</td><td>28.116.915</td><td>Marcos Costa</td><td>Ativo</td></tr>
+            </tbody>
+        </table>
+    </div>
+</main>
 </body>
 </html>
