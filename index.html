@@ -1,28 +1,30 @@
 <script>
-    // 1. Dados consolidados em memória (sem busca externa para evitar erro de rede)
+    // Seus dados com uma nova chave 'Fase' para separar por coluna
     const dadosCRM = [
-        { "Nº Precatorio": "5000792-60.2025.4.02.9388", "Valor (R$)": "569.022.567", "Advogado": "JARDEL ROMULO" },
-        { "Nº Precatorio": "0816391-59.2025.8.14.0000", "Valor (R$)": "25.122.248", "Advogado": "OTAVIO SOUZA" },
-        { "Nº Precatorio": "0287409-48.2024.8.26.0500", "Valor (R$)": "11.345.611", "Advogado": "DANIEL DO NASCIMENTO" }
+        { "Nº Precatorio": "5000792-60.2025.4.02.9388", "Valor (R$)": "569.022.567", "Advogado": "JARDEL ROMULO", "Fase": "PROSPECTING" },
+        { "Nº Precatorio": "0816391-59.2025.8.14.0000", "Valor (R$)": "25.122.248", "Advogado": "OTAVIO SOUZA", "Fase": "PROSPECTING" },
+        { "Nº Precatorio": "0287409-48.2024.8.26.0500", "Valor (R$)": "11.345.611", "Advogado": "DANIEL DO NASCIMENTO", "Fase": "QUALIFICATION" }
     ];
 
-    // 2. Garante que o código só rode quando o HTML estiver pronto
     document.addEventListener("DOMContentLoaded", function() {
-        const container = document.getElementById('pipeline-container');
-        
-        if (!container) {
-            console.error("ERRO: O elemento com id 'pipeline-container' não foi encontrado no seu HTML!");
-            return;
-        }
-        
-        container.innerHTML = ''; 
+        // Agora buscamos as colunas pelo nome que aparece na sua imagem
+        const colunas = {
+            "PROSPECTING": document.querySelector('.coluna-prospecting'), 
+            "QUALIFICATION": document.querySelector('.coluna-qualification')
+        };
+
         dadosCRM.forEach(item => {
-            container.innerHTML += `
-                <div class="card">
-                    <h4>${item['Advogado']}</h4>
-                    <p>R$ ${item['Valor (R$)']}</p>
-                </div>
-            `;
+            const container = colunas[item.Fase];
+            if (container) {
+                container.innerHTML += `
+                    <div class="card">
+                        <h4>${item['Advogado']}</h4>
+                        <p>R$ ${item['Valor (R$)']}</p>
+                    </div>
+                `;
+            } else {
+                console.warn("Coluna não encontrada para a fase: " + item.Fase);
+            }
         });
     });
 </script>
