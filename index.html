@@ -1,30 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>AuraLOA | CRM Enterprise</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
+        :root { --gold: #D4AF37; --bg: #050505; --surface: #111111; --border: #222; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: #fff; margin: 0; display: flex; }
+        aside { width: 260px; height: 100vh; background: #000; border-right: 1px solid var(--border); padding: 40px 20px; }
+        main { flex: 1; padding: 40px; }
+        .card { background: var(--surface); border: 1px solid var(--border); padding: 20px; border-radius: 12px; cursor: pointer; transition: 0.3s; margin-bottom: 15px; }
+        .card:hover { border-color: var(--gold); }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); justify-content: center; align-items: center; }
+        .modal-content { background: var(--surface); padding: 40px; border-radius: 16px; width: 400px; border: 1px solid var(--gold); }
+        input { width: 100%; background: #000; border: 1px solid var(--border); color: #fff; padding: 12px; margin: 10px 0; border-radius: 6px; }
+    </style>
+</head>
+<body>
+
+<aside><div style="color:var(--gold); font-weight:600;">AURATECH CRM</div></aside>
+
+<main id="pipeline-container">
+    <!-- Cards serão gerados aqui pelo script -->
+</main>
+
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <h3>Editar Precatório</h3>
+        <input type="text" id="editName" placeholder="Nome do Cliente">
+        <input type="text" id="editValue" placeholder="Valor">
+        <button onclick="saveChanges()" style="background:var(--gold); border:none; padding:12px 20px; border-radius:6px; cursor:pointer;">Salvar Alterações</button>
+    </div>
+</div>
+
 <script>
-    // Seus dados com uma nova chave 'Fase' para separar por coluna
     const dadosCRM = [
-        { "Nº Precatorio": "5000792-60.2025.4.02.9388", "Valor (R$)": "569.022.567", "Advogado": "JARDEL ROMULO", "Fase": "PROSPECTING" },
-        { "Nº Precatorio": "0816391-59.2025.8.14.0000", "Valor (R$)": "25.122.248", "Advogado": "OTAVIO SOUZA", "Fase": "PROSPECTING" },
-        { "Nº Precatorio": "0287409-48.2024.8.26.0500", "Valor (R$)": "11.345.611", "Advogado": "DANIEL DO NASCIMENTO", "Fase": "QUALIFICATION" }
+        { id: 1, nome: "Eduardo", valor: "R$ 22.000.000" },
+        { id: 2, nome: "Amapá Eng.", valor: "R$ 28.116.915" },
+        { id: 3, nome: "JARDEL ROMULO", valor: "R$ 569.022.567" }
     ];
 
-    document.addEventListener("DOMContentLoaded", function() {
-        // Agora buscamos as colunas pelo nome que aparece na sua imagem
-        const colunas = {
-            "PROSPECTING": document.querySelector('.coluna-prospecting'), 
-            "QUALIFICATION": document.querySelector('.coluna-qualification')
-        };
-
+    function renderizarCards() {
+        const main = document.getElementById('pipeline-container');
+        main.innerHTML = '';
         dadosCRM.forEach(item => {
-            const container = colunas[item.Fase];
-            if (container) {
-                container.innerHTML += `
-                    <div class="card">
-                        <h4>${item['Advogado']}</h4>
-                        <p>R$ ${item['Valor (R$)']}</p>
-                    </div>
-                `;
-            } else {
-                console.warn("Coluna não encontrada para a fase: " + item.Fase);
-            }
+            main.innerHTML += `
+                <div id="card${item.id}" class="card" onclick="openModal(${item.id})">
+                    <h4 id="name${item.id}">${item.nome}</h4>
+                    <p id="value${item.id}" style="color:var(--gold);">${item.valor}</p>
+                </div>
+            `;
         });
-    });
+    }
+
+    let currentId = null;
+    function openModal(id) {
+        currentId = id;
+        document.getElementById('editName').value = document.getElementById('name'+id).innerText;
+        document.getElementById('editValue').value = document.getElementById('value'+id).innerText;
+        document.getElementById('modal').style.display = 'flex';
+    }
+
+    function saveChanges() {
+        document.getElementById('name'+currentId).innerText = document.getElementById('editName').value;
+        document.getElementById('value'+currentId).innerText = document.getElementById('editValue').value;
+        document.getElementById('modal').style.display = 'none';
+    }
+
+    renderizarCards();
 </script>
+</body>
+</html>
