@@ -1,57 +1,26 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <title>AuraLOA | Executive CRM</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
-        :root { --gold: #D4AF37; --bg: #050505; --surface: #111111; --border: #222; }
-        body { font-family: 'Inter', sans-serif; background: var(--bg); color: #fff; margin: 0; display: flex; }
-        
-        /* Sidebar */
-        aside { width: 260px; height: 100vh; background: #000; border-right: 1px solid var(--border); padding: 40px 20px; }
-        .logo { color: var(--gold); font-size: 1.2rem; font-weight: 600; letter-spacing: 2px; margin-bottom: 60px; }
-        
-        /* Main Layout */
-        main { flex: 1; padding: 40px; overflow-y: auto; }
-        .stats-bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 40px; }
-        .stat-card { background: var(--surface); padding: 20px; border-radius: 8px; border: 1px solid var(--border); }
-        
-        /* Premium Kanban */
-        .board { display: flex; gap: 20px; }
-        .column { flex: 1; }
-        .column-header { font-size: 0.8rem; text-transform: uppercase; color: #666; margin-bottom: 20px; }
-        .card { background: var(--surface); border: 1px solid var(--border); padding: 20px; border-radius: 12px; margin-bottom: 15px; transition: 0.3s; }
-        .card:hover { border-color: var(--gold); transform: translateY(-2px); }
-        .card h4 { margin: 0; color: #fff; }
-    </style>
-</head>
-<body>
+<script>
+    // Base de dados carregada diretamente no código (sem arquivos externos)
+    const dadosCRM = [
+        { "Nº Precatorio": "5000792-60.2025.4.02.9388", "Valor (R$)": "569.022.567", "Advogado": "JARDEL ROMULO" },
+        { "Nº Precatorio": "0816391-59.2025.8.14.0000", "Valor (R$)": "25.122.248", "Advogado": "OTAVIO SOUZA" },
+        { "Nº Precatorio": "0287409-48.2024.8.26.0500", "Valor (R$)": "11.345.611", "Advogado": "DANIEL DO NASCIMENTO" },
+        { "Nº Precatorio": "0817467-21.2025.8.14.0000", "Valor (R$)": "8.021.953", "Advogado": "PENDENTE" }
+    ];
 
-<aside>
-    <div class="logo">AURATECH CRM</div>
-    <nav style="color: #666; font-size: 0.9rem;">
-        <div style="margin-bottom:20px; color:var(--gold);">Pipeline</div>
-        <div>Configurações</div>
-    </nav>
-</aside>
+    function carregarDadosCRM() {
+        const container = document.getElementById('pipeline-container');
+        if (!container) return;
+        
+        container.innerHTML = ''; 
+        dadosCRM.forEach(item => {
+            container.innerHTML += `
+                <div class="card" onclick="openModal('${item['Nº Precatorio']}', '${item['Valor (R$)']}')">
+                    <h4>${item['Advogado']}</h4>
+                    <p style="color:var(--gold);">R$ ${item['Valor (R$)']}</p>
+                </div>
+            `;
+        });
+    }
 
-<main>
-    <div class="stats-bar">
-        <div class="stat-card">Total Pipeline<div style="font-size:1.5rem; margin-top:10px;">R$ 480M</div></div>
-        <div class="stat-card">Ativos Abertos<div style="font-size:1.5rem; margin-top:10px;">08</div></div>
-    </div>
-
-    <div class="board">
-        <div class="column">
-            <div class="column-header">Prospecting</div>
-            <div class="card"><h4>Eduardo</h4><p style="color:var(--gold);">R$ 22.000.000</p></div>
-        </div>
-        <div class="column">
-            <div class="column-header">Qualification</div>
-            <div class="card"><h4>Amapá Eng.</h4><p style="color:var(--gold);">R$ 28.116.915</p></div>
-        </div>
-    </div>
-</main>
-</body>
-</html>
+    window.onload = carregarDadosCRM;
+</script>
