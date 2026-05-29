@@ -2,53 +2,52 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>AuraLOA | Executive CRM</title>
+    <title>AuraLOA | CRM Enterprise</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
         :root { --gold: #D4AF37; --bg: #050505; --surface: #111111; --border: #222; }
         body { font-family: 'Inter', sans-serif; background: var(--bg); color: #fff; margin: 0; display: flex; }
-        
         aside { width: 260px; height: 100vh; background: #000; border-right: 1px solid var(--border); padding: 40px 20px; }
-        .logo { color: var(--gold); font-size: 1.2rem; font-weight: 600; margin-bottom: 60px; }
-        
         main { flex: 1; padding: 40px; }
         .card { background: var(--surface); border: 1px solid var(--border); padding: 20px; border-radius: 12px; cursor: pointer; transition: 0.3s; }
-        .card:hover { border-color: var(--gold); }
-
-        /* Estilo do Modal Premium */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); justify-content: center; align-items: center; }
-        .modal-content { background: var(--surface); padding: 40px; border-radius: 16px; width: 500px; border: 1px solid var(--gold); }
-        input { width: 100%; background: #000; border: 1px solid var(--border); color: #fff; padding: 10px; margin: 10px 0; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); justify-content: center; align-items: center; }
+        .modal-content { background: var(--surface); padding: 40px; border-radius: 16px; width: 400px; border: 1px solid var(--gold); }
+        input { width: 100%; background: #000; border: 1px solid var(--border); color: #fff; padding: 12px; margin: 10px 0; border-radius: 6px; }
     </style>
 </head>
 <body>
 
-<aside>
-    <div class="logo">AURATECH CRM</div>
-</aside>
+<aside><div class="logo" style="color:var(--gold); font-weight:600;">AURATECH CRM</div></aside>
 
 <main>
-    <div class="card" onclick="openModal('Eduardo', 'R$ 22.000.000')">
-        <h4>Eduardo</h4>
-        <p style="color:var(--gold);">R$ 22.000.000</p>
+    <div id="card1" class="card" onclick="openModal('card1')">
+        <h4 id="name1">Eduardo</h4>
+        <p id="value1" style="color:var(--gold);">R$ 22.000.000</p>
     </div>
 </main>
 
 <div id="modal" class="modal">
     <div class="modal-content">
-        <h3 id="modalTitle">Detalhes do Precatório</h3>
-        <input type="text" id="modalValue" placeholder="Valor">
-        <button onclick="closeModal()" style="background:var(--gold); border:none; padding:10px 20px;">Salvar Alterações</button>
+        <h3>Editar Precatório</h3>
+        <input type="text" id="editName" placeholder="Nome do Cliente">
+        <input type="text" id="editValue" placeholder="Valor">
+        <button onclick="saveChanges()" style="background:var(--gold); border:none; padding:12px 20px; border-radius:6px; cursor:pointer;">Salvar Alterações</button>
     </div>
 </div>
 
 <script>
-    function openModal(title, value) {
-        document.getElementById('modalTitle').innerText = title;
-        document.getElementById('modalValue').value = value;
+    let currentCardId = "";
+    function openModal(id) {
+        currentCardId = id;
+        document.getElementById('editName').value = document.getElementById('name'+id.slice(-1)).innerText;
+        document.getElementById('editValue').value = document.getElementById('value'+id.slice(-1)).innerText;
         document.getElementById('modal').style.display = 'flex';
     }
-    function closeModal() { document.getElementById('modal').style.display = 'none'; }
+    function saveChanges() {
+        document.getElementById('name'+currentCardId.slice(-1)).innerText = document.getElementById('editName').value;
+        document.getElementById('value'+currentCardId.slice(-1)).innerText = document.getElementById('editValue').value;
+        document.getElementById('modal').style.display = 'none';
+    }
 </script>
 </body>
 </html>
